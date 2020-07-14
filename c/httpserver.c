@@ -3743,7 +3743,13 @@ char *getMimeType(char *extension, int *isBinary){
   } else if(!strcmp(extension,"7z")) {
     *isBinary = TRUE;
     return "application/x-7z-compressed";
-  } else{
+  }else if(!strcmp(extension,"webm")) {
+    *isBinary = TRUE;
+    return "video/webm";
+  }else if(!strcmp(extension,"mp4")) {
+    *isBinary = TRUE;
+    return "video/mp4";
+  }else{
     *isBinary = TRUE;
     return "application/octet-stream";
   }
