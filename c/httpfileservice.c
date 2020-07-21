@@ -199,9 +199,7 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
 
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
-
   if (isDir(absolutePath)) {
-      char *command = absolutePath;
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
@@ -210,19 +208,14 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       strcat(finalFileName,".tar.gz");
       printf("Info: start request for \'%s\' with parm \'%s\'\n",
              command, finalFileName);
-      char *arguments[] = { "tar", "-zcvf", finalFileName , command };
+      char *arguments[] = { "tar", "-cf", finalFileName , absolutePath };
       execvp("/bin/sh", arguments);
-
-      response200WithMessage(response, "Successfully created a file");
-
-////
-////        if(doesFileExist(finalFileName)){
-////            response200WithMessage(response, "Successfully created a file");
-////
-////        }
-////        else{
-////            respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
-////        }
+      if(doesFileExist(finalFileName)){
+        response200WithMessage(response, "Successfully created a file");
+      }
+      else{
+        respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
+      }
   }
   else {
     respondWithJsonError(response, "Failed to identify a directory with the given name", 400, "Bad Request");
