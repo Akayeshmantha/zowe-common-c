@@ -204,7 +204,11 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
         int folderNameLen = strlen(absolutePath);
         int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
         char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-        char *finalFileName = safeMalloc(strlen(tarFileName), strlen(".tar.gz") , "ok cake wage");
+        char *buffer = safeMalloc(strlen(tarFileName), "VSAM buffer");
+        char *keyBuffer = safeMalloc(strlen(".tar.gz"), "VSAM key buffer");
+        memset(buffer,0,strlen(tarFileName));
+        memset(keyBuffer,0,strlen(".tar.gz"));
+//        char *finalFileName = safeMalloc(strlen(tarFileName), strlen(".tar.gz") , "ok cake wage");
         strcpy(finalFileName, tarFileName);
         strcat(finalFileName,".tar.gz");
         char *arguments[] = { "tar", "-zcvf", finalFileName , command };
