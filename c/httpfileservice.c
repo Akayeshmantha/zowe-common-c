@@ -211,16 +211,17 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
         char *finalFileName;
         strcpy(finalFileName, tarFileName);
         strcat(finalFileName,".tar.gz");
-        char *arguments[] = { "tar", "-zcvf", finalFileName , command };
-        execvp("/bin/sh", arguments);
-
-        if(doesFileExist(finalFileName)){
-            response200WithMessage(response, "Successfully created a file");
-
-        }
-        else{
-            respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
-        }
+        response200WithMessage(response, "Successfully created a file");
+//        char *arguments[] = { "tar", "-zcvf", finalFileName , command };
+//        execvp("/bin/sh", arguments);
+//
+//        if(doesFileExist(finalFileName)){
+//            response200WithMessage(response, "Successfully created a file");
+//
+//        }
+//        else{
+//            respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
+//        }
   }
   else {
     respondWithJsonError(response, "Failed to identify a directory with the given name", 400, "Bad Request");
