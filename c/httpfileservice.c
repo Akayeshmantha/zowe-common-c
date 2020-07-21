@@ -203,7 +203,7 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-      char finalFileName[strlen(tarFileName) + strlen(".tar.gz")];
+      char finalFileName[strlen(tarFileName) + strlen(".tar")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar.gz");
       char *arguments[] = { "tar", "-cf", finalFileName , absolutePath };
