@@ -199,33 +199,35 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
 
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
-  if (isDir(absolutePath)) {
-        char *command = absolutePath;
-        int folderNameLen = strlen(absolutePath);
-        int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
-        char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-        char *buffer = safeMalloc(strlen(tarFileName), "VSAM buffer");
-        char *keyBuffer = safeMalloc(strlen(".tar.gz"), "VSAM key buffer");
-        memset(buffer,0,strlen(tarFileName));
-        memset(keyBuffer,0,strlen(".tar.gz"));
-        char *finalFileName;
-        strcpy(finalFileName, tarFileName);
-        strcat(finalFileName,".tar.gz");
-        response200WithMessage(response, "Successfully created a file");
-//        char *arguments[] = { "tar", "-zcvf", finalFileName , command };
-//        execvp("/bin/sh", arguments);
-//
-//        if(doesFileExist(finalFileName)){
-//            response200WithMessage(response, "Successfully created a file");
-//
-//        }
-//        else{
-//            respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
-//        }
-  }
-  else {
-    respondWithJsonError(response, "Failed to identify a directory with the given name", 400, "Bad Request");
-  }
+    response200WithMessage(response, "Successfully created a file");
+
+//  if (isDir(absolutePath)) {
+//        char *command = absolutePath;
+//        int folderNameLen = strlen(absolutePath);
+//        int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
+//        char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
+//        char *buffer = safeMalloc(strlen(tarFileName), "VSAM buffer");
+//        char *keyBuffer = safeMalloc(strlen(".tar.gz"), "VSAM key buffer");
+//        memset(buffer,0,strlen(tarFileName));
+//        memset(keyBuffer,0,strlen(".tar.gz"));
+//        char *finalFileName;
+//        strcpy(finalFileName, tarFileName);
+//        strcat(finalFileName,".tar.gz");
+//        response200WithMessage(response, "Successfully created a file");
+////        char *arguments[] = { "tar", "-zcvf", finalFileName , command };
+////        execvp("/bin/sh", arguments);
+////
+////        if(doesFileExist(finalFileName)){
+////            response200WithMessage(response, "Successfully created a file");
+////
+////        }
+////        else{
+////            respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
+////        }
+//  }
+//  else {
+//    respondWithJsonError(response, "Failed to identify a directory with the given name", 400, "Bad Request");
+//  }
 }
 
 
