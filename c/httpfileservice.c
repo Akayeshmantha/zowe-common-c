@@ -208,7 +208,7 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
         char *keyBuffer = safeMalloc(strlen(".tar.gz"), "VSAM key buffer");
         memset(buffer,0,strlen(tarFileName));
         memset(keyBuffer,0,strlen(".tar.gz"));
-//        char *finalFileName = safeMalloc(strlen(tarFileName), strlen(".tar.gz") , "ok cake wage");
+        char *finalFileName;
         strcpy(finalFileName, tarFileName);
         strcat(finalFileName,".tar.gz");
         char *arguments[] = { "tar", "-zcvf", finalFileName , command };
