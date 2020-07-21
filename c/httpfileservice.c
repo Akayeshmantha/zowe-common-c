@@ -205,21 +205,16 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-
-//      char *buffer = safeMalloc(strlen(tarFileName), "file name buffer");
-//      char *keyBuffer = safeMalloc(strlen(".tar.gz"), "extention key buffer");
-//      memset(buffer,0,strlen(tarFileName));
-//      memset(keyBuffer,0,strlen(".tar.gz"));
       char finalFileName[strlen(tarFileName) + strlen(".tar.gz")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar.gz");
-   printf("Info: start request for \'%s\' with parm \'%s\'\n",
+      printf("Info: start request for \'%s\' with parm \'%s\'\n",
              command, finalFileName);
+      char *arguments[] = { "tar", "-zcvf", finalFileName , command };
+      execvp("/bin/sh", arguments);
 
-        char *arguments[] = { "tar", "-zcvf", finalFileName , command };
-         response200WithMessage(response, "Successfully created a file");
+      response200WithMessage(response, "Successfully created a file");
 
-////        execvp("/bin/sh", arguments);
 ////
 ////        if(doesFileExist(finalFileName)){
 ////            response200WithMessage(response, "Successfully created a file");
