@@ -199,9 +199,9 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
 
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
-    response200WithMessage(response, "Successfully created a file");
 
-//  if (isDir(absolutePath)) {
+  if (isDir(absolutePath)) {
+      response200WithMessage(response, "Successfully created a file");
 //        char *command = absolutePath;
 //        int folderNameLen = strlen(absolutePath);
 //        int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
@@ -224,10 +224,10 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
 ////        else{
 ////            respondWithJsonError(response, "Failed to create tar file", 400, "Bad Request");
 ////        }
-//  }
-//  else {
-//    respondWithJsonError(response, "Failed to identify a directory with the given name", 400, "Bad Request");
-//  }
+  }
+  else {
+    respondWithJsonError(response, "Failed to identify a directory with the given name", 400, "Bad Request");
+  }
 }
 
 
