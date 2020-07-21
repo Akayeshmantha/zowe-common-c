@@ -201,10 +201,10 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
   if (isDir(absolutePath)) {
         char *command = absolutePath;
-        int foldernameLen = strlen(absolutePath);
-        int slashPos = lastIndexOf(absolutePath, foldernameLen, '/');
+        int folderNameLen = strlen(absolutePath);
+        int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
         char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-        char *finalFileName = safeMalloc(tarFileName, ".tar.gz");
+        char *finalFileName = safeMalloc("okkkkkkkk", ".tar.gz");
         strcpy(finalFileName, tarFileName);
         strcat(finalFileName,".tar.gz");
         char *arguments[] = { "tar", "-zcvf", finalFileName , command };
