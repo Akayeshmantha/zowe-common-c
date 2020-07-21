@@ -208,12 +208,11 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       printf("Info: start request for \'%s\' with parm \'%s\'\n",
                command, tarFileName);
 
-      char *buffer = safeMalloc(strlen(tarFileName), "file name buffer");
-      char *keyBuffer = safeMalloc(strlen(".tar.gz"), "extention key buffer");
-      memset(buffer,0,strlen(tarFileName));
-      memset(keyBuffer,0,strlen(".tar.gz"));
-
-      char *finalFileName;
+//      char *buffer = safeMalloc(strlen(tarFileName), "file name buffer");
+//      char *keyBuffer = safeMalloc(strlen(".tar.gz"), "extention key buffer");
+//      memset(buffer,0,strlen(tarFileName));
+//      memset(keyBuffer,0,strlen(".tar.gz"));
+      char finalFileName[strlen(tarFileName) + strlen(".tar.gz")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar.gz");
       response200WithMessage(response, "Successfully created a file");
