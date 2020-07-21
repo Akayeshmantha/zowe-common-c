@@ -204,11 +204,9 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
         int foldernameLen = strlen(absolutePath);
         int slashPos = lastIndexOf(absolutePath, foldernameLen, '/');
         char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-        char *fileExtention = ".tar.gz";
-        char *finalFileName;
-        finalFileName = malloc(strlen(tarFileName) + strlen(fileExtention) + 1);
+        char *finalFileName = safeMalloc(tarFileName, ".tar.gz");
         strcpy(finalFileName, tarFileName);
-        strcat(finalFileName,fileExtention);
+        strcat(finalFileName,".tar.gz");
         char *arguments[] = { "tar", "-zcvf", finalFileName , command };
         execvp("/bin/sh", arguments);
 
