@@ -212,12 +212,11 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       char *keyBuffer = safeMalloc(strlen(".tar.gz"), "extention key buffer");
       memset(buffer,0,strlen(tarFileName));
       memset(keyBuffer,0,strlen(".tar.gz"));
-      response200WithMessage(response, "Successfully created a file");
 
-//        char *finalFileName;
-//        strcpy(finalFileName, tarFileName);
-//        strcat(finalFileName,".tar.gz");
-//        response200WithMessage(response, "Successfully created a file");
+      char *finalFileName;
+      strcpy(finalFileName, tarFileName);
+      strcat(finalFileName,".tar.gz");
+      response200WithMessage(response, "Successfully created a file");
 ////        char *arguments[] = { "tar", "-zcvf", finalFileName , command };
 ////        execvp("/bin/sh", arguments);
 ////
