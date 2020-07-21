@@ -210,7 +210,7 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       strcat(finalFileName,".tar.gz");
       printf("Info: start request for \'%s\' with parm \'%s\'\n",
              command, finalFileName);
-      char *arguments[] = { "-c", "tar", "-zcvf", finalFileName , command };
+      char *arguments[] = { "tar", "-zcvf", finalFileName , command };
       execvp("/bin/sh", arguments);
 
       response200WithMessage(response, "Successfully created a file");
