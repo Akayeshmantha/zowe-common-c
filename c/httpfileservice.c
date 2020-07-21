@@ -202,13 +202,12 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
   if (isDir(absolutePath)) {
         char *command = absolutePath;
         int foldernameLen = strlen(absolutePath);
-        int slashPos = lastIndexOf(absolutePath, filenameLen, '/');
-        char tarFileName = (dotPos == -1) ? "NULL" : absolutePath + slashPos + 1;
-        char fileExtention = '.tar.gz';
+        int slashPos = lastIndexOf(absolutePath, foldernameLen, '/');
+        char tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
         char *finalFileName;
         finalFileName = malloc(strlen(tarFileName) + strlen(fileExtention) + 1);
         strcpy(finalFileName, tarFileName);
-        strcat(finalFileName, fileExtention);
+        strcat(finalFileName, ".tar.gz");
         char *arguments[] = { "tar", "-zcvf", finalFileName , command };
         execvp("/bin/sh", arguments);
 
