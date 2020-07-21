@@ -206,8 +206,6 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       char finalFileName[strlen(tarFileName) + strlen(".tar.gz")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar.gz");
-      printf("Info: start request for \'%s\' with parm \'%s\'\n",
-             command, finalFileName);
       char *arguments[] = { "tar", "-cf", finalFileName , absolutePath };
       execvp("/bin/sh", arguments);
       if(doesFileExist(finalFileName)){
