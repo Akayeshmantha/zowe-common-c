@@ -205,7 +205,7 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
       char finalFileName[strlen(tarFileName) + strlen(".tar")];
       strcpy(finalFileName, tarFileName);
-      strcat(finalFileName,".tar.gz");
+      strcat(finalFileName,".tar");
       char *arguments[] = { "tar", "-cf", finalFileName , absolutePath };
       execvp("/bin/sh", arguments);
       if(doesFileExist(finalFileName)){
