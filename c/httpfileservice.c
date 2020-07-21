@@ -201,11 +201,14 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
   if (isDir(absolutePath)) {
+      char *command = absolutePath;
+      int folderNameLen = strlen(absolutePath);
+      int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
+      char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
+      printf("Info: start request for \'%s\' with parm \'%s\'\n",
+               command, tarFileName);
       response200WithMessage(response, "Successfully created a file");
-//        char *command = absolutePath;
-//        int folderNameLen = strlen(absolutePath);
-//        int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
-//        char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
+
 //        char *buffer = safeMalloc(strlen(tarFileName), "VSAM buffer");
 //        char *keyBuffer = safeMalloc(strlen(".tar.gz"), "VSAM key buffer");
 //        memset(buffer,0,strlen(tarFileName));
