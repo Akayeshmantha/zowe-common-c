@@ -200,17 +200,15 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
   if (isDir(absolutePath)) {
-      char *abspath = absolutePath;
-       printf("Info: start request for \'%s\'",
-                       abspath);
       int folderNameLen = strlen(absolutePath);
+      if(folderNameLen == 0 || absolutePath == NULL) {
+         respondWithJsonError(response, "Failed to idenity the folder pointed", 400, "Bad Request");
+      }
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
-      char *tarFileName = (slashPos == -1) ? "NULL" : abspath + slashPos + 1;
+      char *tarFileName = (slashPos == -1) ? absolutePath : absolutePath + slashPos + 1;
       char finalFileName[strlen(tarFileName) + strlen(".tar")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar");
-//      char *arguments[] = {"tar", "-cf", finalFileName , abspath };
-//      execvp("/bin/sh -c", arguments);
 
       char finalCommand[strlen("/bin/sh -c 'tar -cf ") + strlen(finalFileName) + strlen(absolutePath) + 2];
       strcpy(finalCommand, "/bin/sh -c 'tar -cf ");
@@ -218,9 +216,8 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       strcat(finalCommand," ");
       strcat(finalCommand,absolutePath);
       strcat(finalCommand,"'");
-
-//      char *argsp = "/bin/sh -c 'tar -cf aka.tar /u/ts3420/aish'";
       system(finalCommand);
+
       if(doesFileExist(finalFileName)){
         response200WithMessage(response, "Successfully created a file");
       }
