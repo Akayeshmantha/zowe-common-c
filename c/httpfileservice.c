@@ -205,11 +205,13 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
                        abspath);
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
-      char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
+      char *tarFileName = (slashPos == -1) ? "NULL" : abspath + slashPos + 1;
       char finalFileName[strlen(tarFileName) + strlen(".tar")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar");
       char *arguments[] = {"\"", "tar", "-cf", finalFileName , abspath, "\"" };
+       printf("Info: start request for \'%s\'",
+                             abspath);
       execvp("/bin/sh -c", arguments);
       if(doesFileExist(finalFileName)){
         response200WithMessage(response, "Successfully created a file");
