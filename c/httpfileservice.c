@@ -200,6 +200,7 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
   if (isDir(absolutePath)) {
+      char abspath = absolutePath;
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
@@ -207,8 +208,8 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar");
       printf("Info: start request for \'%s\' with parm \'%s\'\n",
-                 finalFileName, absolutePath);
-      char *arguments[] = {"\"", "tar", "-cf", finalFileName , absolutePath, "\"" };
+                 finalFileName, abspath);
+      char *arguments[] = {"\"", "tar", "-cf", finalFileName , abspath, "\"" };
       execvp("/bin/sh -c", arguments);
       if(doesFileExist(finalFileName)){
         response200WithMessage(response, "Successfully created a file");
