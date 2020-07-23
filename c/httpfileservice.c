@@ -211,8 +211,16 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       strcat(finalFileName,".tar");
 //      char *arguments[] = {"tar", "-cf", finalFileName , abspath };
 //      execvp("/bin/sh -c", arguments);
-       char *argsp = "/bin/sh -c 'tar -cf aka.tar /u/ts3420/aish'";
-      system(argsp);
+
+      char finalCommand[strlen("/bin/sh -c 'tar -cf ") + strlen(finalFileName) + strlen(absolutePath) + 2];
+      strcpy(finalCommand, "/bin/sh -c 'tar -cf ");
+      strcat(finalCommand,finalFileName);
+      strcat(finalCommand," ");
+      strcat(finalCommand,absolutePath);
+      strcat(finalCommand,"'");
+
+//      char *argsp = "/bin/sh -c 'tar -cf aka.tar /u/ts3420/aish'";
+      system(finalCommand);
       if(doesFileExist(finalFileName)){
         response200WithMessage(response, "Successfully created a file");
       }
