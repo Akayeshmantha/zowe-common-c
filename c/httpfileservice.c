@@ -209,12 +209,12 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       char *commands = "tar -cf ";
 
       char finalFileNamesss[strlen(finalFileName) + strlen(absolutePath) + strlen(commands) + 3];
-      strcpy(finalFileNamesss, '\"');
+      strcpy(finalFileNamesss, "\"");
       strcat(finalFileNamesss, commands);
       strcat(finalFileNamesss,finalFileName);
       strcat(finalFileNamesss," ");
       strcat(finalFileNamesss,absolutePath);
-      strcat(finalFileNamesss, '\"');
+      strcat(finalFileNamesss, "\"");
 
 //      char *arguments[] = { "tar", "-cf", finalFileName , absolutePath };
       execvp("/bin/sh -c", finalFileNamesss);
