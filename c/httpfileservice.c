@@ -217,6 +217,8 @@ void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolut
       strcat(finalCommand,absolutePath);
       strcat(finalCommand,"'");
       system(finalCommand);
+      printf("Info: start request for \'%s\' with parm \'%s\'\n",
+                     absolutePath, finalFileName);
 
       if(doesFileExist(finalFileName)){
         response200WithMessage(response, "Successfully created a file");
