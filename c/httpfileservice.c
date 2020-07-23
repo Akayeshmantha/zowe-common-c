@@ -201,14 +201,14 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
   if (isDir(absolutePath)) {
       char *abspath = absolutePath;
+       printf("Info: start request for \'%s\'",
+                       abspath);
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
       char finalFileName[strlen(tarFileName) + strlen(".tar")];
       strcpy(finalFileName, tarFileName);
       strcat(finalFileName,".tar");
-      printf("Info: start request for \'%s\' with parm \'%s\'\n",
-                 finalFileName, abspath);
       char *arguments[] = {"\"", "tar", "-cf", finalFileName , abspath, "\"" };
       execvp("/bin/sh -c", arguments);
       if(doesFileExist(finalFileName)){
