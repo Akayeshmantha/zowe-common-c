@@ -200,7 +200,7 @@ void deleteUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
 
 void createFileFromUnixDirectoryAndRespond(HttpResponse *response, char *absolutePath) {
   if (isDir(absolutePath)) {
-      char abspath = absolutePath;
+      char *abspath = absolutePath;
       int folderNameLen = strlen(absolutePath);
       int slashPos = lastIndexOf(absolutePath, folderNameLen, '/');
       char *tarFileName = (slashPos == -1) ? "NULL" : absolutePath + slashPos + 1;
